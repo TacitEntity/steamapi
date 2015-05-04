@@ -11,7 +11,7 @@ class Steam_API(object):
 			self.userInfo = json.load(inFile)
 
 		self.api_list = 'http://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v0001/?key='
-		self.get_api_list = requests.get(api_list + userInfo['auth_key']).json()['apilist']['interfaces']
+		self.get_api_list = requests.get(self.api_list + self.userInfo['auth_key']).json()['apilist']['interfaces']
 		self.api_options = {}
 		for interface_name in self.get_api_list:
 			self.api_options[interface_name['name']] = interface_name['methods']
