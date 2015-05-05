@@ -16,28 +16,25 @@ class Steam_API(object):
 		for interface_name in self.get_api_list:
 			self.api_options[interface_name['name']] = interface_name['methods']
 
-	def get_interface_names(self):
-		for x in self.api_options:
-			print x
+	def get_options(self):
+	# grab a list of the interface and their method(s)
 
-	def call_api(self, interface, method=None):
-	    interface_options = {}
+	def call_api(self, interface, method):
+	    self.interface_options = {}
 	    if self.api_options[interface]:
+	    	# grab the index of the method for the specified interface
 	        for x, y in list(enumerate(self.api_options[interface])):
-	            interface_options[y['name']] = x
+	            self.interface_options[y['name']] = x
 
-	    if method is None:
-	    	# If no method argument is supplied, print all available method options for the interface.
-	    	for x in interface_options:
-	    		print x
-		else:
-			# with interface, method, interface_options[method], build off get_api_list to capture version.
-			# print 'http://api.steampowered.com/%s/%s/v%s/?' % (interface, method, interface_options[method])
-			print 'Testing (wtf else the first condition went through!)'
+	    if self.interface_options[method]:
+	    	# pull the interface, the method, and pull version to create the query
+	    	print 'http://api.steampowered.com/%s/%s/v%s/?' % (interface, method, self.api_options[interface][self.interface_options[method]]['version'])
 
-## Testing... going to finish the query build for this function.
 ## Advanced steam api queries will call to this query builder in later functions.
-
 steam = Steam_API()
-print steam.call_api('ICSGOServers_730')
-# testing method=None with the second steam.call_api argument: 'GetGameServersStatus'
+
+steam.get_options()
+
+# for testing index and version control (change the index to account for the method)
+# steam.call_api('ISteamUserStats', 'GetSchemaForGame')
+# print steam.api_options['ISteamUserStats'][6]
