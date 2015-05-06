@@ -16,8 +16,21 @@ class Steam_API(object):
 		for interface_name in self.get_api_list:
 			self.api_options[interface_name['name']] = interface_name['methods']
 
-	def get_options(self):
+	def get_options(self, known_interface=None):
 	# grab a list of the interface and their method(s)
+		if known_interface:
+			print known_interface
+			print '----------------------------'
+			for method in self.api_options[known_interface]:
+				print method['name']
+
+		else:
+			for interface in self.api_options.keys():
+				print '============================'
+				print interface
+				print '----------------------------'
+				for method in self.api_options[interface]:
+					print method['name']
 
 	def call_api(self, interface, method):
 	    self.interface_options = {}
@@ -33,7 +46,7 @@ class Steam_API(object):
 ## Advanced steam api queries will call to this query builder in later functions.
 steam = Steam_API()
 
-steam.get_options()
+steam.get_options('ISteamUserStats')
 
 # for testing index and version control (change the index to account for the method)
 # steam.call_api('ISteamUserStats', 'GetSchemaForGame')
