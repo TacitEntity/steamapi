@@ -43,6 +43,12 @@ class Steam_API(object):
 	    	# pull the interface, the method, and pull version to create the query
 	    	print 'http://api.steampowered.com/%s/%s/v%s/?' % (interface, method, self.api_options[interface][self.interface_options[method]]['version'])
 
+	def get_query_params(self, interface, method):
+		# grab a list of query parameters for the method used, mark optional and required parameters.
+		for method in self.api_options[interface]:
+			print method['paramter'] # or something like that, i'll do this later.
+
+
 ## Advanced steam api queries will call to this query builder in later functions.
 steam = Steam_API()
 
